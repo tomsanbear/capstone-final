@@ -20,6 +20,8 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
 using namespace std;
 
 // 
@@ -38,13 +40,13 @@ class User{
 	public:
 		string name;
 		int numCoefs;
-		float [] detCoefs;
+		float detCoefs [];
 
 		// Member Functions
 		void initializefromfile(string filename);
-		void initializeNewUser(string username, float *[] coefs, int numEntries);
+		void initializeNewUser(string username, float* coefs[], int numEntries);
 		User();
-}
+};
 
 //
 // Write the member functions of the User class
@@ -52,9 +54,10 @@ class User{
 
 void User::initializefromfile(string filename){
 	// TODO: Sophs code here
+	cout << filename << endl;
 }
 
-void User::initializeNewUser(string filename, float *[] coefs, int numEntries)
+void User::initializeNewUser(string filename, float *coefs[], int numEntries){
 	// Enter in class member variables
 	name = filename;
 	numCoefs = numEntries;
@@ -62,7 +65,14 @@ void User::initializeNewUser(string filename, float *[] coefs, int numEntries)
 
 	// Initialize the EKG detection
 	// TODO: add my code to receive datahere
-	
+	cout << "Please place fingers on the sensor, data collection will start in..." << endl;
+	sleep(1000);
+	cout << "3" << endl;
+	sleep(1000);
+	cout << "2" << endl;
+	sleep(1000);
+	cout << "1" << endl;
+
 
 	// TODO: Window the data
 	
@@ -88,7 +98,25 @@ User::User(void){
 //			Function to compare two different users				//
 //////////////////////////////////////////////////////////////////////////////////////////
 
+// Implements euclidean distance between two users returns the distance
+float distCompare(User first, User second){
+       // we first need to find the min number of coefs that we can compare and
+       // downsample if necessary
+       int maxDim = first.numCoefs;
+       if (maxDim < second.numCoefs)
+	       maxDim = second.numCoefs;
 
+       // We now calculate the distance
+       float distanceOut = 0;
+       float tempDif;
+       for(int i = 0;i<maxDim;i++){
+	       tempDif = first.detCoefs[i]-second.detCoefs[i];
+	       distanceOut = distanceOut + pow(tempDif,2);
+       }
+       distanceOut = sqrt(distanceOut);
+       // Return the calculated distance
+       return distanceOut;
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +135,7 @@ int main(){
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
-	while(){
+	while(true){
 		cin >> userChoice;
 		if(userChoice == 1){
 			//Add from file
@@ -122,9 +150,9 @@ int main(){
 		else if(userChoice == 4){
 			cout << "Exiting program" << endl;
 			break;
-		else{
-			cout << "Invallid choice" << endl;
 		}
+		else
+			cout << "Invallid choice" << endl;
 	}
 
 	// Exit program
