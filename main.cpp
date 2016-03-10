@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include <fstream>
+
 using namespace std;
 
 // 
@@ -94,6 +96,33 @@ User::User(void){
 	cout << "Empty user initialized." << endl;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//			Scoring algorithm						//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// returns 0 for accepted, 1 for rejected
+int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg_score){
+	float fp_limit = 0.9;
+	float ekg_limit = 0.95;
+	float fusion_limit = 0.8; // These values will be modified later on ~ SNR
+	if(fp_score < fp_limit){
+		// Fingerprint is not satisfactory, so we move on to the ekg
+		cout << "Fingerprint not coherent, matching EKG" << endl;
+		if(ekg_score < ekg_limit)
+			return 1;
+		else{
+			// fusion HA
+			float fusionScore = (fp_weight*fp_score)+(ekg_weight*ekg_score);
+			if (fusionScore<fusion_limit)
+				return 1;
+			else
+				return 0;
+		}
+	}
+	else
+		return 0;
+}
+	
 //////////////////////////////////////////////////////////////////////////////////////////
 //			Function to compare two different users				//
 //////////////////////////////////////////////////////////////////////////////////////////
