@@ -1,0 +1,11 @@
+Final compilation of code for the EKG fingerprint system. 
+
+The main components are as follows:
+-EKG Data Logger [done]
+-EKG Filtering System [done, to be added]
+-Flush data to file [tbd]
+-Autocorrelation componetn [tbd]
+-LDA algorithm [tbd]
+-Final compilation algorithm [tbd]
+-Scoring method [done]
+-UI [tbd]
