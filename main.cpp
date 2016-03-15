@@ -46,7 +46,7 @@ class User{
 
 		// Member Functions
 		void initializefromfile(string filename);
-		void initializeNewUser(string username, float* coefs[], int numEntries);
+		void initializeNewUser(string username,int sampleTime);
 		User();
 };
 
@@ -59,10 +59,9 @@ void User::initializefromfile(string filename){
 	cout << filename << endl;
 }
 
-void User::initializeNewUser(string filename, float *coefs[], int numEntries){
+void User::initializeNewUser(string filename, int sampleTime){
 	// Enter in class member variables
-	name = filename;
-	numCoefs = numEntries;
+	name = filename;	
 	cout << "User info created." << endl;
 
 	// Initialize the EKG detection
@@ -74,7 +73,7 @@ void User::initializeNewUser(string filename, float *coefs[], int numEntries){
 	cout << "2" << endl;
 	sleep(1000);
 	cout << "1" << endl;
-
+	// EKG Measuring function here TODO
 
 	// TODO: Window the data
 	
@@ -147,7 +146,6 @@ float distCompare(User first, User second){
        return distanceOut;
 }
 
-
 //////////////////////////////////////////////////////////////////////////////////////////
 //                         MAIN FUNCTION BELOW HERE					//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -156,25 +154,50 @@ int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
 	// TODO
-	int numUsersToLoad;
-	cin >> numUsersToLoad;
-	for (int i=0,i<numUsersToLoad;i++){
+	User masterList[50];
+	int numUsers,temp;
+	float tempDist;
+	float bestDist = 10000;
+	cin >> numUsers;
+	for (int i=0,i<numUsers;i++){
 		cout << "Adding user " << i << " to the program" << endl;
 	}
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
+	User currentUser;
 	while(true){
 		cin >> userChoice;
 		if(userChoice == 1){
-			//Add from file
+			// Identify/Authenticate the user
+			currentUser.initializeNewUser("temp", 4);
+			temp =0;
+			for(int i=0;i<numUsers;i++){
+				// Iterate through the coefficient lists, and keep the lowest distance, then calculate the probability
+				tempDist= distCompare(currentUser,masterList[i]);
+				if (tempDist<bestDist){
+					temp = i; // set the current best user
+				}
+				cout << "You are user: " << masterList[temp].name << endl;
+			}
 		}
 		else if(userChoice == 2){
 			// Enrol User in the system
+			// Create new User class
+			string tempName;
+			cout << "Please enter your name: ";
+			cin >> tempName;
+			numUsers += 1;
+			masterList[numUsers].initializeNewUser(tempName,20);
+			// Now we test to see if the user is recognized in the system
+			
 		}
 		else if(userChoice == 3){
 			// Delete User
-			numUsersToLoad = numUsersToLoad -1;
+			numUsers = numUsers -1;
+			string tempName;
+			cout << "Please enter the name of the user to delete." << endl;
+			cin >> tempName;
 		}
 		else if(userChoice == 4){
 			cout << "Exiting program" << endl;
