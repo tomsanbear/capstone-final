@@ -21,6 +21,8 @@
 #include <math.h>
 #include <fstream>
 #include "userClass.hpp"
+#include "matlabFunctions.hpp"
+
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -58,15 +60,15 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 float distCompare(User first, User second){
        // we first need to find the min number of coefs that we can compare and
        // downsample if necessary
-       int maxDim = first.numCoefs;
-       if (maxDim < second.numCoefs)
-	       maxDim = second.numCoefs;
+       unsigned long  maxDim = first.vectorCoefs.size();
+       if (maxDim < second.vectorCoefs.size())
+	       maxDim = second.vectorCoefs.size();
 
        // We now calculate the distance
        float distanceOut = 0;
        float tempDif;
-       for(int i = 0;i<maxDim;i++){
-	       tempDif = first.detCoefs[i]-second.detCoefs[i];
+       for(unsigned long i = 0;i<maxDim;i++){
+	       tempDif = first.vectorCoefs[i]-second.vectorCoefs[i];
 	       distanceOut = distanceOut + pow(tempDif,2);
        }
        distanceOut = sqrt(distanceOut);
@@ -82,18 +84,18 @@ int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
 	// TODO
-	User masterList[50];
+	vector<User> masterList;
 	int numUsers,temp;
 	float tempDist;
 	float bestDist = 10000;
 	cin >> numUsers;
-	for (int i=0,i<numUsers;i++){
+	for (int i=0;i<numUsers;i++){
 		cout << "Adding user " << i << " to the program" << endl;
 	}
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
-	User currentUser;
+	User currentUser; // This will be the user currently accessing the system
 	while(true){
 		cin >> userChoice;
 		if(userChoice == 1){
@@ -106,6 +108,7 @@ int main(){
 				if (tempDist<bestDist){
 					temp = i; // set the current best user
 				}
+				//Fusion code goes in here
 				cout << "You are user: " << masterList[temp].name << endl;
 			}
 		}

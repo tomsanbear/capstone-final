@@ -4,12 +4,17 @@
 #ifndef matlabFunctions
 #define matlabFunctions
 
-// Takes in two float arrays of wavelet coefs 
-float distCompare(float *first, float *second);
-// Takes autocorellation of the function
-void autocorellation(float *acArray, float *inputArray);
-// Perform LDA on the set TODO
+#include "userClass.hpp"
+#include "alglib/dataanalysis.h"
+#include "alglib/ap.h"
+#include <math.h>
 
+// Takes in two float arrays of wavelet coefs 
+float distCompare(User first, User second);
+// Takes autocorellation of the function
+void autocorellation(User input);
+// Perform LDA on the set TODO
+void ldaComputation(vector<User> masterList);
 // 
 
 #endif

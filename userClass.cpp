@@ -15,13 +15,12 @@ void User::initializeNewUser(string username, int sampleTime){
 	cout << "Creating new user" << endl;
 	// We begin to fill in data we know of
 	name = username;
-	numCoefs = 100;
-	//
 }
 
 void User::initializefromfile(string filename){
 	// Input the database txt file so that it is parsed in as new users.
 	cout << "Importing existing users from database" << endl;
 	// Sophs code goes here TODO
+	name = filename;
 }
 
