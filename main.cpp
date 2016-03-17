@@ -17,83 +17,11 @@
 // Only the detailed coefs. are stored for each user, not actual biometric data
 
 // Ordering of headers is important here.
-#include <iostream>
-#include <string>
-#include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
 #include <fstream>
-
+#include "userClass.hpp"
 using namespace std;
-
-// 
-// Create the user class
-// Contains the following data on each user:
-// -name
-// -size of data held
-// -detailed coefs
-//
-// Functions:
-// -Add user from data stored
-// -Add user from data passed within the program
-// -Delete user
-//
-class User{
-	public:
-		string name;
-		int numCoefs;
-		float detCoefs [];
-
-		// Member Functions
-		void initializefromfile(string filename);
-		void initializeNewUser(string username,int sampleTime);
-		User();
-};
-
-//
-// Write the member functions of the User class
-//
-
-void User::initializefromfile(string filename){
-	// TODO: Sophs code here
-	cout << filename << endl;
-}
-
-void User::initializeNewUser(string filename, int sampleTime){
-	// Enter in class member variables
-	name = filename;	
-	cout << "User info created." << endl;
-
-	// Initialize the EKG detection
-	// TODO: add my code to receive datahere
-	cout << "Please place fingers on the sensor, data collection will start in..." << endl;
-	sleep(1000);
-	cout << "3" << endl;
-	sleep(1000);
-	cout << "2" << endl;
-	sleep(1000);
-	cout << "1" << endl;
-	// EKG Measuring function here TODO
-
-	// TODO: Window the data
-	
-
-	// TODO: Perform autocorellation
-	
-
-	// TODO: LDA algorithm
-	
-
-	// TODO: Obtain detailed coefficients, and populate the coefs array
-	
-
-	// TODO: add sophs code for saving to file here
-	cout << "User info saved to file." << endl;
-}
-
-User::User(void){
-	cout << "Empty user initialized." << endl;
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //			Scoring algorithm						//
