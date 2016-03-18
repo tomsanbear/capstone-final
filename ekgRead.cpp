@@ -7,13 +7,14 @@
 #include <ekgRead.hpp>
 #define MAX_NUM_MEASUREMENTS 20000
 #define GOIO_MAXSIZE_DEVICE_NAME 100
-
+#include "userClass.hpp"
+#include <vector>
 
 char const *deviceDesc[8] = {"?", "?", "Go! Temp", "Go! Link", "Go! Motion", "?", "?", "Mini GC"};
 bool GetAvailableDeviceName(char *deviceName, gtype_int32 nameLength, gtype_int32 *pVendorId, gtype_int32 *pProductId);
 static void OSSleep(unsigned long msToSleep);
 
-void readEKG(int sampleTime, float *signal){
+void readEKG(int sampleTime, vector<float> *newUser){
 	char deviceName[GOIO_MAXSIZE_DEVICE_NAME];
 	gtype_int32 vendorId;
 	gtype_int32 productId;
@@ -21,7 +22,7 @@ void readEKG(int sampleTime, float *signal){
 	gtype_real64 volts[MAX_NUM_MEASUREMENTS];
 	gtype_real64 calbMeasurements[MAX_NUM_MEASUREMENTS];
 	gtype_int32 numMeasurements, i;
-	gtype_real64 measureperiod = 0.004;
+	gtype_real64 measureperiod = 0.004; // Fixed sampling rate, limited by the hardware
 	gtype_uint16 MajorVersion;
 	gtype_uint16 MinorVersion;
 
@@ -48,7 +49,8 @@ void readEKG(int sampleTime, float *signal){
 			for (i = 0; i < numMeasurements; i++){
 				volts[i]= GoIO_Sensor_ConvertToVoltage(hDevice, rawMeasurements[i]);
 				calbMeasurements[i] = GoIO_Sensor_CalibrateData(hDevice,volts[i]);
-				signal[i] = calbMeasurements[i];
+				//TODO put in the pushback operation for a vector here
+				newUser->push_back(calbMeasurements[i]);
 				fprintf(fp,"%f\n",calbMeasurements[i]);
 			}
 			fclose(fp);
