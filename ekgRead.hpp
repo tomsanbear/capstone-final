@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <memory.h>
 #include <sys/time.h>
-#include "GoIO_DLL_interface.h"
+#include "ekgLib/GoIO_DLL_interface.h"
 
 void readEKG(int sampleTime);
 
