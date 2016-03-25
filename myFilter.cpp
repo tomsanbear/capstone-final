@@ -6,7 +6,11 @@
 //
 //
 
-#include <myFilter.hpp>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include "myFilter.hpp"
 
 //filter function. See DSP filters readme for usage
 float* filter(const int numSamples, float* ekgData,const int sampleRate,const int order,const int centerF,const int bandWidth){
@@ -25,7 +29,8 @@ float* filter(const int numSamples, float* ekgData,const int sampleRate,const in
 
 //parse text, modifies a vector value, returns size of, takes path as input
 int textParser(std::string textInput, std::vector<float> &output){
-    std::ifstream input(textInput,std::ios::in);//create ifstream
+    const char* temp = textInput.c_str();
+	std::ifstream input(temp,std::ios::in); //create ifstream
     if (!input.is_open()){
         printf("cannot read file, exiting\n");
         exit(EXIT_FAILURE);
@@ -86,9 +91,6 @@ void myButterFilter(float* ekgData, float* snr,const int numSamples){
     
     ekgData = filter(numSamples, ekgData, sampleRate, order, centerF, bandWidth);
     getSNR(ekgData, origSig, numSamples, snr);
-    
     return;
-    
-};//main thing
-
+}
 

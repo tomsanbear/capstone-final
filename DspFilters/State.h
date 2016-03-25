@@ -280,13 +280,11 @@ public:
   }
 
   template <class Filter, typename Sample>
-  void process (int numSamples,
-                Sample* const* arrayOfChannels,
-                Filter& filter)
-  {
-    for (int i = 0; i < Channels; ++i)
-      filter.process (numSamples, arrayOfChannels[i], m_state[i]);
-  }
+  void process (int numSamples, Sample* const* arrayOfChannels,Filter& filter);
+//  {
+//    for (int i = 0; i < Channels; ++i)
+//      filter.process (numSamples, arrayOfChannels[i], m_state[i]);
+//  }
 
 private:
   StateType m_state[Channels];

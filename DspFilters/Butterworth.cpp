@@ -63,7 +63,7 @@ void AnalogLowPass::design (int numPoles)
     }
 
     if (numPoles & 1)
-      add (-1, infinity());
+      add (-1.0, infinity());
   }
 }
 

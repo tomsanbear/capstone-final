@@ -23,8 +23,6 @@
 #include "userClass.hpp"
 #include "matlabFunctions.hpp"
 
-using namespace std;
-
 //////////////////////////////////////////////////////////////////////////////////////////
 //			Scoring algorithm						//
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +34,7 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 	float fusion_limit = 0.8; // These values will be modified later on ~ SNR
 	if(fp_score < fp_limit){
 		// Fingerprint is not satisfactory, so we move on to the ekg
-		cout << "Fingerprint not coherent, matching EKG" << endl;
+		std::cout << "Fingerprint not coherent, matching EKG" << std::endl;
 		if(ekg_score < ekg_limit)
 			return 1;
 		else{
@@ -84,20 +82,20 @@ int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
 	// TODO
-	vector<User> masterList;
+	std::vector<User> masterList;
 	int numUsers,temp;
 	float tempDist;
 	float bestDist = 10000;
-	cin >> numUsers;
+	std::cin >> numUsers;
 	for (int i=0;i<numUsers;i++){
-		cout << "Adding user " << i << " to the program" << endl;
+		std::cout << "Adding user " << i << " to the program" << std::endl;
 	}
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
 	User currentUser; // This will be the user currently accessing the system
 	while(true){
-		cin >> userChoice;
+		std::cin >> userChoice;
 		if(userChoice == 1){
 			// Identify/Authenticate the user
 			currentUser.initializeNewUser("temp", 4);
@@ -109,15 +107,15 @@ int main(){
 					temp = i; // set the current best user
 				}
 				//Fusion code goes in here
-				cout << "You are user: " << masterList[temp].name << endl;
+				std::cout << "You are user: " << masterList[temp].name << std::endl;
 			}
 		}
 		else if(userChoice == 2){
 			// Enrol User in the system
 			// Create new User class
-			string tempName;
-			cout << "Please enter your name: ";
-			cin >> tempName;
+			std::string tempName;
+			std::cout << "Please enter your name: ";
+			std::cin >> tempName;
 			numUsers += 1;
 			masterList[numUsers].initializeNewUser(tempName,20);
 			// Now we test to see if the user is recognized in the system
@@ -126,16 +124,16 @@ int main(){
 		else if(userChoice == 3){
 			// Delete User
 			numUsers = numUsers -1;
-			string tempName;
-			cout << "Please enter the name of the user to delete." << endl;
-			cin >> tempName;
+			std::string tempName;
+			std::cout << "Please enter the name of the user to delete." << std::endl;
+			std::cin >> tempName;
 		}
 		else if(userChoice == 4){
-			cout << "Exiting program" << endl;
+			std::cout << "Exiting program" << std::endl;
 			break;
 		}
 		else
-			cout << "Invalid choice" << endl;
+			std::cout << "Invalid choice" << std::endl;
 	}
 
 	// Exit program

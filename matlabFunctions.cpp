@@ -2,10 +2,10 @@
 
 float distCompare(float *first, float *second){
 	// code here
-	
+	return 1;
 }
 
-void ldaComputation(vector<User> masterList){
+void ldaComputation(std::vector<User> masterList){
 	const alglib_impl::ae_int_t npoints = masterList.size();
 	const alglib_impl::ae_int_t nvars = masterList.size();
 	const alglib_impl::ae_int_t nclasses = 3;
@@ -16,6 +16,6 @@ void ldaComputation(vector<User> masterList){
 	// Load masterlist into the xy array
 	
 	// Set proper setup variables
-	alglib::fisherlda(xy,npoints,nvars,nclasses,info,w,_state);
+	//alglib::fisherlda(xy,npoints,nvars,nclasses,info,w,_state);
 	return;
 }

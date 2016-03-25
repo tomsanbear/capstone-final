@@ -4,10 +4,9 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-using namespace std;
 
 // New User Declaration 
-void User::initializeNewUser(string username, int sampleTime){
+void User::initializeNewUser(std::string username, int sampleTime){
 	name = username;
 	// we now start the capture procedure
 	readEKG(sampleTime,vectorCoefs);
@@ -21,5 +20,5 @@ void User::initializeNewUser(string username, int sampleTime){
 
 //Define the default constructor class
 User::User(void){
-	cout << "Empty User created" << endl;
+	std::cout << "Empty User created" << std::endl;
 }

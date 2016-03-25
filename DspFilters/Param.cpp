@@ -40,6 +40,7 @@ THE SOFTWARE.
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 namespace Dsp {
 

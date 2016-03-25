@@ -213,14 +213,12 @@ public:
 
   void process (int numSamples, float* const* arrayOfChannels)
   {
-    m_state.process (numSamples, arrayOfChannels,
-                     FilterDesignBase<DesignClass>::m_design);
+    m_state.process (numSamples, arrayOfChannels, FilterDesignBase<DesignClass>::m_design);
   }
 
   void process (int numSamples, double* const* arrayOfChannels)
   {
-    m_state.process (numSamples, arrayOfChannels,
-                     FilterDesignBase<DesignClass>::m_design);
+    m_state.process (numSamples, arrayOfChannels, FilterDesignBase<DesignClass>::m_design);
   }
 
 protected:

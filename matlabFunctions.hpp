@@ -14,7 +14,7 @@ float distCompare(User first, User second);
 // Takes autocorellation of the function
 void autocorellation(User input);
 // Perform LDA on the set TODO
-void ldaComputation(vector<User> masterList);
+void ldaComputation(std::vector<User> masterList);
 // 
 
 #endif

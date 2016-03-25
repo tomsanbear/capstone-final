@@ -26,7 +26,6 @@
 #include "ekgRead.hpp"
 #define MAX_COEF_SIZE 100
 
-using namespace std;
 class User{
 		public:
 		std::string name;
