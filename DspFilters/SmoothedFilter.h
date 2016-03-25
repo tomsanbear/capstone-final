@@ -36,8 +36,8 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_SMOOTHEDFILTER_H
 #define DSPFILTERS_SMOOTHEDFILTER_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Filter.h"
+#include "Common.h"
+#include "Filter.h"
 
 namespace Dsp {
 

@@ -33,8 +33,8 @@ THE SOFTWARE.
 
 *******************************************************************************/
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Design.h"
+#include "Common.h"
+#include "Design.h"
 
 #include <stdexcept>
 #include <sstream>

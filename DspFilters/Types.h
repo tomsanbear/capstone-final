@@ -36,8 +36,8 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_TYPES_H
 #define DSPFILTERS_TYPES_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/MathSupplement.h"
+#include "Common.h"
+#include "MathSupplement.h"
 
 namespace Dsp {
 

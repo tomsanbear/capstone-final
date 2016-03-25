@@ -21,16 +21,19 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include <string>
+#include "myFilter.hpp"
+#include "ekgRead.hpp"
 #define MAX_COEF_SIZE 100
 
 using namespace std;
 class User{
 		public:
-		string name;
-		vector<float> vectorCoefs;
+		std::string name;
+		std::vector<float> vectorCoefs;
 		//functions
-		void initializefromfile(string filename);
-		void initializeNewUser(string username, int sampleTime);
+		void initializefromfile(std::string filename);
+		void initializeNewUser(std::string username, int sampleTime);
 		User(void);
 };
 

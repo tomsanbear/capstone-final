@@ -4,7 +4,7 @@
  *	Author: Thomas Santerre
  *	Date: February 17 2016
  */
-#include <ekgRead.hpp>
+#include "ekgRead.hpp"
 #define MAX_NUM_MEASUREMENTS 20000
 #define GOIO_MAXSIZE_DEVICE_NAME 100
 #include "userClass.hpp"
@@ -14,7 +14,7 @@ char const *deviceDesc[8] = {"?", "?", "Go! Temp", "Go! Link", "Go! Motion", "?"
 bool GetAvailableDeviceName(char *deviceName, gtype_int32 nameLength, gtype_int32 *pVendorId, gtype_int32 *pProductId);
 static void OSSleep(unsigned long msToSleep);
 
-void readEKG(int sampleTime, vector<float> *newUser){
+void readEKG(int sampleTime, std::vector<float> &newUser){
 	char deviceName[GOIO_MAXSIZE_DEVICE_NAME];
 	gtype_int32 vendorId;
 	gtype_int32 productId;
@@ -50,7 +50,7 @@ void readEKG(int sampleTime, vector<float> *newUser){
 				volts[i]= GoIO_Sensor_ConvertToVoltage(hDevice, rawMeasurements[i]);
 				calbMeasurements[i] = GoIO_Sensor_CalibrateData(hDevice,volts[i]);
 				//TODO put in the pushback operation for a vector here
-				newUser->push_back(calbMeasurements[i]);
+				newUser.push_back(calbMeasurements[i]);
 				fprintf(fp,"%f\n",calbMeasurements[i]);
 			}
 			fclose(fp);

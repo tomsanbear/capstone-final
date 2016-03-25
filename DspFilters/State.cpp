@@ -33,8 +33,8 @@ THE SOFTWARE.
 
 *******************************************************************************/
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/State.h"
+#include "Common.h"
+#include "State.h"
 
 namespace Dsp {
 

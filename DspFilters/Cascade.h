@@ -36,11 +36,11 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_CASCADE_H
 #define DSPFILTERS_CASCADE_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Biquad.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Filter.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Layout.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/MathSupplement.h"
+#include "Common.h"
+#include "Biquad.h"
+#include "Filter.h"
+#include "Layout.h"
+#include "MathSupplement.h"
 
 namespace Dsp {
 

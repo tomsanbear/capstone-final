@@ -36,7 +36,7 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_MATHSUPPLEMENT_H
 #define DSPFILTERS_MATHSUPPLEMENT_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
+#include "Common.h"
 
 namespace Dsp {
 

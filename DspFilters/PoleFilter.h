@@ -36,9 +36,9 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_POLEFILTER_H
 #define DSPFILTERS_POLEFILTER_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/MathSupplement.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Cascade.h"
+#include "Common.h"
+#include "MathSupplement.h"
+#include "Cascade.h"
 
 namespace Dsp {
 

@@ -36,11 +36,11 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_FILTER_H
 #define DSPFILTERS_FILTER_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/MathSupplement.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Params.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/State.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Types.h"
+#include "Common.h"
+#include "MathSupplement.h"
+#include "Params.h"
+#include "State.h"
+#include "Types.h"
 
 namespace Dsp {
 

@@ -36,11 +36,11 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_BUTTERWORTH_H
 #define DSPFILTERS_BUTTERWORTH_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Cascade.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Design.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Filter.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/PoleFilter.h"
+#include "Common.h"
+#include "Cascade.h"
+#include "Design.h"
+#include "Filter.h"
+#include "PoleFilter.h"
 
 namespace Dsp {
 

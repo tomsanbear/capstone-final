@@ -36,8 +36,8 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_STATE_H
 #define DSPFILTERS_STATE_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Biquad.h"
+#include "Common.h"
+#include "Biquad.h"
 
 #include <stdexcept>
 

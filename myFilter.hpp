@@ -26,20 +26,20 @@
 
 
 //filter function. See DSP filters readme for usage
-float* filter(const int numSamples, float* ekgData,const int sampleRate,const int order,const int centerF,const int bandWidth)
+float* filter(const int numSamples, float* ekgData,const int sampleRate,const int order,const int centerF,const int bandWidth);
 
 //parse text, modifies a vector value, returns size of, takes path as input
-int textParser(std::string textInput, std::vector<float> &output)
+int textParser(std::string textInput, std::vector<float> &output);
 
 //return the mean of a float array
-float getMean(const float* input,const int numSamples)
+float getMean(const float* input,const int numSamples);
 
 //function to get snr, noise is measures as original signal - filtered signal
-void getSNR(const float* filtSig,const float origSig[],const int numSamples, float* snr)
+void getSNR(const float* filtSig,const float origSig[],const int numSamples, float* snr);
 
 
 //main entry function, modifies ekgData array and snr
-void myButterFilter(float* ekgData, float* snr,const int numSamples)
+void myButterFilter(float* ekgData, float* snr,const int numSamples);
 
 
 

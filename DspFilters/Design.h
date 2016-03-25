@@ -36,8 +36,8 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_DESIGN_H
 #define DSPFILTERS_DESIGN_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Params.h"
+#include "Common.h"
+#include "Params.h"
 
 namespace Dsp {
 

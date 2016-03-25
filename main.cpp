@@ -135,7 +135,7 @@ int main(){
 			break;
 		}
 		else
-			cout << "Invallid choice" << endl;
+			cout << "Invalid choice" << endl;
 	}
 
 	// Exit program

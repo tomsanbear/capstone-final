@@ -40,16 +40,16 @@ THE SOFTWARE.
 // Include this file in your application to get everything
 //
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
+#include "Common.h"
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Biquad.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Cascade.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Filter.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/PoleFilter.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/SmoothedFilter.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/State.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Utilities.h"
+#include "Biquad.h"
+#include "Cascade.h"
+#include "Filter.h"
+#include "PoleFilter.h"
+#include "SmoothedFilter.h"
+#include "DspFilters/State.h"
+#include "Utilities.h"
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Butterworth.h"
+#include "Butterworth.h"
 
 #endif

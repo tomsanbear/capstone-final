@@ -36,9 +36,9 @@ THE SOFTWARE.
 #ifndef DSPFILTERS_BIQUAD_H
 #define DSPFILTERS_BIQUAD_H
 
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Common.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/MathSupplement.h"
-#include "/Users/phie/Documents/CAPSTONE/C++/capstonetest/DspFilters/Types.h"
+#include "Common.h"
+#include "MathSupplement.h"
+#include "Types.h"
 
 namespace Dsp {
 
