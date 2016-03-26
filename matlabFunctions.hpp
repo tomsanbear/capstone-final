@@ -12,9 +12,9 @@
 // Takes in two float arrays of wavelet coefs 
 float distCompare(User first, User second);
 // Takes autocorellation of the function
-void autocorellation(User input);
+void autocorellation(User input,std::vector<float> &ac);
 // Perform LDA on the set TODO
-void ldaComputation(std::vector<User> masterList);
+void ldaComputation(std::vector<User> &masterList);
 // 
 
 #endif

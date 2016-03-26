@@ -5,17 +5,25 @@ float distCompare(float *first, float *second){
 	return 1;
 }
 
-void ldaComputation(std::vector<User> masterList){
-	const alglib_impl::ae_int_t npoints = masterList.size();
-	const alglib_impl::ae_int_t nvars = masterList.size();
-	const alglib_impl::ae_int_t nclasses = 3;
-	alglib_impl::ae_int_t *info;
-	alglib::real_1d_array *w;
-	alglib::real_2d_array *xy;
-	alglib_impl::ae_state *_state;
+void ldaComputation(std::vector<float> weights,std::vector<User> &masterList){
+	long int npoints = masterList.size();
+	long int nvars = masterList.size();
+	long int nclasses = 3;
+	long int info = 1;
+	alglib::real_1d_array w;
+	alglib::real_2d_array xy;
 	// Load masterlist into the xy array
-	
-	// Set proper setup variables
-	//alglib::fisherlda(xy,npoints,nvars,nclasses,info,w,_state);
+	alglib::fisherlda(&xy,npoints,nvars,nclasses,&info,&w);
+	//Send weights back to original function
 	return;
+}
+
+// Takes input of windowed data, M, and upsample M
+void autocorellation(int M,int upM, std::vector<float> windowSig,std::vector<float> &ac){
+	int sizeOf = windowSig.size();
+	for(int i= 0; i<= sizeOf;i++){
+		for(int j=0;j<=M+1;j++){
+			//insert ac code here TODO
+		}
+	}
 }

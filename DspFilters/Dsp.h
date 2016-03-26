@@ -47,7 +47,7 @@ THE SOFTWARE.
 #include "Filter.h"
 #include "PoleFilter.h"
 #include "SmoothedFilter.h"
-#include "DspFilters/State.h"
+#include "State.h"
 #include "Utilities.h"
 
 #include "Butterworth.h"

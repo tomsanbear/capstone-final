@@ -35,6 +35,7 @@ THE SOFTWARE.
 
 #include "Common.h"
 #include "Design.h"
+#include "Params.h"
 
 #include <stdexcept>
 #include <sstream>
