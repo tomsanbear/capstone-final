@@ -16,13 +16,13 @@
 #include <fstream>
 #include <vector>
 #include "DspFilters/Dsp.h"
-#include "DspFilters/Butterworth.cpp"
-#include "DspFilters/Biquad.cpp"
-#include "DspFilters/Cascade.cpp"
-#include "DspFilters/Filter.cpp"
-#include "DspFilters/PoleFilter.cpp"
-#include "DspFilters/State.cpp"
-#include "DspFilters/Param.cpp"
+#include "DspFilters/Butterworth.h"
+#include "DspFilters/Biquad.h"
+#include "DspFilters/Cascade.h"
+#include "DspFilters/Filter.h"
+#include "DspFilters/PoleFilter.h"
+#include "DspFilters/State.h"
+#include "DspFilters/Params.h"
 
 
 //filter function. See DSP filters readme for usage
