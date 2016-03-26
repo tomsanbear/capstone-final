@@ -1,17 +1,17 @@
 /*******************************************************************************
 
 "A Collection of Useful C++ Classes for Digital Signal Processing"
- By Vincent Falco
+ By Vinnie Falco
 
 Official project location:
-http://code.google.com/p/dspfilterscpp/
+https://github.com/vinniefalco/DSPFilters
 
 See Documentation.cpp for contact information, notes, and bibliography.
 
 --------------------------------------------------------------------------------
 
 License: MIT License (http://www.opensource.org/licenses/mit-license.php)
-Copyright (c) 2009 by Vincent Falco
+Copyright (c) 2009 by Vinnie Falco
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -280,11 +280,13 @@ public:
   }
 
   template <class Filter, typename Sample>
-  void process (int numSamples, Sample* const* arrayOfChannels,Filter& filter);
-//  {
-//    for (int i = 0; i < Channels; ++i)
-//      filter.process (numSamples, arrayOfChannels[i], m_state[i]);
-//  }
+  void process (int numSamples,
+                Sample* const* arrayOfChannels,
+                Filter& filter)
+  {
+    for (int i = 0; i < Channels; ++i)
+      filter.process (numSamples, arrayOfChannels[i], m_state[i]);
+  }
 
 private:
   StateType m_state[Channels];
