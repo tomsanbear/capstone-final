@@ -10,7 +10,7 @@ void User::initializeNewUser(std::string username, int sampleTime){
 	name = username;
 	// we now start the capture procedure
 	int status = readEKG(sampleTime,ekgdata);
-	if(status = 0){
+	if(status == 0){
 		// Take the EKG vector and perform the filtering on it
 		int numsamples = ekgdata.size();
 		float *ekg_float = &ekgdata[0];

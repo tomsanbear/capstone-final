@@ -57,7 +57,6 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
-	// TODO
 	std::vector<User> masterList;
 	int numUsers,temp;
 	float tempDist;
