@@ -57,8 +57,9 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
-	std::vector<User> masterList;
-	int numUsers,temp;
+	std::vector<User> masterList(100);
+	int numUsers = 0;
+	int temp;
 	float tempDist;
 	float bestDist = 10000;
 	std::cout << "Importing any available users to the system." << std::endl;
@@ -70,6 +71,7 @@ int main(){
 	while(true){
 		std::cout << "Please choose an option" << std::endl;
 		std::cin >> userChoice;
+		std::cin.ignore(1);
 		if(userChoice == 1){
 			// Identify/Authenticate the user
 			currentUser.initializeNewUser("temp", 4);
@@ -90,19 +92,15 @@ int main(){
 			std::string tempName;
 			std::cout << "Please enter your name: ";
 			std::cin >> tempName;
-			numUsers += 1;
 			masterList[numUsers].initializeNewUser(tempName,20);
-			// Now we test to see if the user is recognized in the system
-			
+			numUsers += 1;
+			// We now recompile the weights in the LDA algorithm with the added user.
 		}
 		else if(userChoice == 4){
 			std::cout << "Exiting program" << std::endl;
-			break;
+			return 0;
 		}
 		else
 			std::cout << "Invalid choice" << std::endl;
 	}
-
-	// Exit program
-	return 0;
 }

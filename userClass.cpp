@@ -13,8 +13,9 @@ void User::initializeNewUser(std::string username, int sampleTime){
 	if(status == 0){
 		// Take the EKG vector and perform the filtering on it
 		int numsamples = ekgdata.size();
-		float *ekg_float = &ekgdata[0];
-		float *snr = 0;
+		float ekg_float[numsamples];
+		std::copy(ekgdata.begin(),ekgdata.end(),ekg_float);
+		float snr = 0;
 		myButterFilter(ekg_float,snr,numsamples); //TODO convert function to use vector
 		// Window the signal now
 		// We now find detailed coefs.

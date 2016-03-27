@@ -39,7 +39,7 @@ void getSNR(const float* filtSig,const float origSig[],const int numSamples, flo
 
 
 //main entry function, modifies ekgData array and snr
-void myButterFilter(float* ekgData, float* snr,const int numSamples);
+void myButterFilter(float* ekgData, float& snr,const int numSamples);
 
 
 

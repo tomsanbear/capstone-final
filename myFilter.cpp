@@ -55,7 +55,7 @@ float getMean(const float* input,const int numSamples){
 }
 
 //function to get snr, noise is measures as original signal - filtered signal
-void getSNR(const float* filtSig,const float origSig[],const int numSamples, float* snr){
+void getSNR(const float* filtSig,const float origSig[],const int numSamples, float& snr){
     float noisePower;
     float noise[numSamples];
     float sigPower;
@@ -65,14 +65,14 @@ void getSNR(const float* filtSig,const float origSig[],const int numSamples, flo
         sigPower+=std::abs(filtSig[i]*filtSig[i])/numSamples;
     }
     printf("%f\n%f\n", sigPower, noisePower);
-    *snr = sigPower/noisePower;
-    printf("%f\n", *snr);
+    snr = sigPower/noisePower;
+    printf("%f\n", snr);
     return;
 }
 
 
 //main entry function, modifies ekgData array and snr
-void myButterFilter(float* ekgData, float* snr,const int numSamples){
+void myButterFilter(float* ekgData, float& snr,const int numSamples){
     float origSig[numSamples];
     
     // set filter parameters
