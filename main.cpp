@@ -49,30 +49,6 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 	else
 		return 0;
 }
-	
-//////////////////////////////////////////////////////////////////////////////////////////
-//			Function to compare two different users				//
-//////////////////////////////////////////////////////////////////////////////////////////
-
-// Implements euclidean distance between two users returns the distance
-float distCompare(User first, User second){
-       // we first need to find the min number of coefs that we can compare and
-       // downsample if necessary
-       unsigned long  maxDim = first.vectorCoefs.size();
-       if (maxDim < second.vectorCoefs.size())
-	       maxDim = second.vectorCoefs.size();
-
-       // We now calculate the distance
-       float distanceOut = 0;
-       float tempDif;
-       for(unsigned long i = 0;i<maxDim;i++){
-	       tempDif = first.vectorCoefs[i]-second.vectorCoefs[i];
-	       distanceOut = distanceOut + pow(tempDif,2);
-       }
-       distanceOut = sqrt(distanceOut);
-       // Return the calculated distance
-       return distanceOut;
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //                         MAIN FUNCTION BELOW HERE					//
@@ -86,23 +62,22 @@ int main(){
 	int numUsers,temp;
 	float tempDist;
 	float bestDist = 10000;
-	std::cin >> numUsers;
-	for (int i=0;i<numUsers;i++){
-		std::cout << "Adding user " << i << " to the program" << std::endl;
-	}
+	std::cout << "Importing any available users to the system." << std::endl;
+	// Read in any available users.
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
 	User currentUser; // This will be the user currently accessing the system
 	while(true){
+		std::cout << "Please choose an option" << std::endl;
 		std::cin >> userChoice;
 		if(userChoice == 1){
 			// Identify/Authenticate the user
 			currentUser.initializeNewUser("temp", 4);
-			temp =0;
+			temp = 0;
 			for(int i=0;i<numUsers;i++){
 				// Iterate through the coefficient lists, and keep the lowest distance, then calculate the probability
-				tempDist= distCompare(currentUser,masterList[i]);
+				tempDist= distCompare(currentUser,masterList);
 				if (tempDist<bestDist){
 					temp = i; // set the current best user
 				}
@@ -120,13 +95,6 @@ int main(){
 			masterList[numUsers].initializeNewUser(tempName,20);
 			// Now we test to see if the user is recognized in the system
 			
-		}
-		else if(userChoice == 3){
-			// Delete User
-			numUsers = numUsers -1;
-			std::string tempName;
-			std::cout << "Please enter the name of the user to delete." << std::endl;
-			std::cin >> tempName;
 		}
 		else if(userChoice == 4){
 			std::cout << "Exiting program" << std::endl;

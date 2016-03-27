@@ -7,7 +7,6 @@
 #include "ekgRead.hpp"
 #define MAX_NUM_MEASUREMENTS 20000
 #define GOIO_MAXSIZE_DEVICE_NAME 100
-#include "userClass.hpp"
 #include "ekgLib/GoIO_DLL_interface.h"
 
 #include <vector>

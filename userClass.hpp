@@ -1,17 +1,5 @@
 // 
 // This file contains the user class
-// Contains all necessary includes for the GoSDK libraries
-// We store all the coefficients using the vector structure as it can handle dynamically 
-// allocating any future coefficients
-//
-// File initilization:
-// takes in the filename to read stored coefficients and sets up like that
-//
-// New User:
-// Starts the EKG reading process, and processes into the detailed coefs.
-//
-// Constructor: 
-// Empty as the two other functions deal with this.
 //
  
 #ifndef userClass
@@ -29,10 +17,18 @@
 class User{
 		public:
 		std::string name;
-		std::vector<float> vectorCoefs;
+		int identifier;		// file name to save under for system startup
+		std::vector<float> ekgdata; // not secure, therefore might bundle together into constructor
+		std::vector< std::vector<float> > windowdata; // utility structure
+		std::vector< std::vector<float> > vectorCoefs; // essentially a 2d matrix holding the coefs
+		std::vector< std::vector<float> > weightedCoefs; // another place holder...inefficient meh
+		std::vector<float> ac; //will be removed later, but here for testing
+		std::vector<double> weights; // for conveninence weights are stored here, same for all users
 		//functions
-		void initializefromfile(std::string filename);
+		int initializefromfile(int identifier);
 		void initializeNewUser(std::string username, int sampleTime);
+		void windowEkg();
+		void flushUserToFile(void);
 		User(void);
 };
 

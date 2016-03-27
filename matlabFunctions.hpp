@@ -10,7 +10,7 @@
 #include <math.h>
 
 // Takes in two float arrays of wavelet coefs 
-float distCompare(User first, User second);
+float distCompare(User first, std::vector<User> second);
 // Takes autocorellation of the function
 void autocorellation(User input,std::vector<float> &ac);
 // Perform LDA on the set TODO
