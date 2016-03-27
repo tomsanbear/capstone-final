@@ -15,7 +15,7 @@ char const *deviceDesc[8] = {"?", "?", "Go! Temp", "Go! Link", "Go! Motion", "?"
 bool GetAvailableDeviceName(char *deviceName, gtype_int32 nameLength, gtype_int32 *pVendorId, gtype_int32 *pProductId);
 static void OSSleep(unsigned long msToSleep);
 
-void readEKG(int sampleTime, std::vector<float> &newUser){
+int readEKG(int sampleTime, std::vector<float> &newUser){
 	char deviceName[GOIO_MAXSIZE_DEVICE_NAME];
 	gtype_int32 vendorId;
 	gtype_int32 productId;
@@ -32,8 +32,11 @@ void readEKG(int sampleTime, std::vector<float> &newUser){
 	GoIO_GetDLLVersion(&MajorVersion, &MinorVersion);
 	printf("Using library version %d.%d \n", MajorVersion, MinorVersion);
 	bool bFoundDevice = GetAvailableDeviceName(deviceName, GOIO_MAXSIZE_DEVICE_NAME, &vendorId, &productId);
-	if(!bFoundDevice)
+	if(!bFoundDevice){
 		printf("No sensor Detected\n");
+		GoIO_Uninit();
+		return 1;
+	}
 	else{
 		GOIO_SENSOR_HANDLE hDevice = GoIO_Sensor_Open(deviceName, vendorId, productId, 0);
 		if(hDevice != NULL){
@@ -60,10 +63,12 @@ void readEKG(int sampleTime, std::vector<float> &newUser){
 		}
 		else{
 			printf("Unable to open Sensor, exiting.");
-			return;	
+			GoIO_Uninit();
+			return 1;
 		}
 	GoIO_Uninit();
 	}
+	return 0;
 }
 
 bool GetAvailableDeviceName(char*deviceName, gtype_int32 nameLength, gtype_int32 *pVendorId, gtype_int32 *pProductId){

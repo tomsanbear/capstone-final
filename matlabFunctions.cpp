@@ -10,7 +10,7 @@ void ldaComputation(std::vector<User> &masterList){
 	long int nvars = masterList[1].vectorCoefs[1].size(); // Number of wavelet coefs for each trainig set
 	long int nclasses = masterList.size(); // Number of users
 	long int info = 0;
-	alglib::real_1d_array w;
+	alglib::real_2d_array w;
 
 	// We initilize this variable with the proper rows and columns
 	alglib::real_2d_array xy;
@@ -26,12 +26,14 @@ void ldaComputation(std::vector<User> &masterList){
 			}
 		}
 	}
-	//Execute the algorithm to obtain training weights
-	alglib::fisherlda(xy,npoints,nvars,nclasses,info,w);
-	//Send weights back to original function
-	for(int i = 0; i <= masterList[1].vectorCoefs.size(); i++){
+	// Execute the algorithm to obtain training weights
+	alglib::fisherldan(xy,npoints,nvars,nclasses,info,w);
+	// Send weights back to original function
+	// NxM
+	for(int i = 0; i <= masterList[1].vectorCoefs.size()-1; i++){
 		for(int j = 0; j <=  nvars; j++){
-			masterList[i].weights[j] = w(i);
+			for(int k =0; k<= meow;k++)
+				masterList[i].weights[j].push_back(w(i,k));
 		}
 	}
 	//Apply the weights to the coefficients

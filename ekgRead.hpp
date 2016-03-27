@@ -9,6 +9,6 @@
 #include <sys/time.h>
 #include "ekgLib/GoIO_DLL_interface.h"
 
-void readEKG(int sampleTime,std::vector<float> &newUser);
+int readEKG(int sampleTime,std::vector<float> &newUser);
 
 #endif

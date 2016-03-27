@@ -23,7 +23,7 @@ class User{
 		std::vector< std::vector<float> > vectorCoefs; // essentially a 2d matrix holding the coefs
 		std::vector< std::vector<float> > weightedCoefs; // another place holder...inefficient meh
 		std::vector<float> ac; //will be removed later, but here for testing
-		std::vector<double> weights; // for conveninence weights are stored here, same for all users
+		std::vector< std::vector<double> > weights; // for conveninence weights are stored here, same for all users
 		//functions
 		int initializefromfile(int identifier);
 		void initializeNewUser(std::string username, int sampleTime);
