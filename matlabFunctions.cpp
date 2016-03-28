@@ -1,6 +1,6 @@
 #include "matlabFunctions.hpp"
 
-float distCompare(User challenge, std::vector<User> masterList){
+float distCompare(User &challenge, std::vector<User> &masterList){
 	// code here
 	return 1;
 }
@@ -11,7 +11,6 @@ void ldaComputation(std::vector<User> &masterList){
 	long int nclasses = masterList.size(); // Number of users
 	long int info = 0;
 	alglib::real_2d_array w;
-
 	// We initilize this variable with the proper rows and columns
 	alglib::real_2d_array xy;
 	xy.setlength(nclasses*masterList[1].vectorCoefs.size(), nvars+1);
@@ -54,7 +53,7 @@ void ldaComputation(std::vector<User> &masterList){
 }
 
 // Takes input of windowed data, M, and upsample M
-void autocorellation(int M,int upM, std::vector<float> windowSig,std::vector<float> &ac){
+void autocorellation(int M,int upM, std::vector<float> &windowSig,std::vector<float> &ac){
 	int sizeOf = windowSig.size();
 	for(int i= 0; i<= sizeOf;i++){
 		for(int j=0;j<=M+1;j++){

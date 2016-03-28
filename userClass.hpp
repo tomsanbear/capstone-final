@@ -27,9 +27,10 @@ class User{
 		//functions
 		int initializefromfile(int identifier);
 		void initializeNewUser(std::string username, int sampleTime);
-		void windowEkg();
+		void windowEkg(void);
 		void flushUserToFile(void);
-		User(void);
+		void computeCoefs(void);
+		User(int input);
 };
 
 #endif

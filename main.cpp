@@ -57,7 +57,7 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
-	std::vector<User> masterList(100);
+	std::vector<User> masterList(100,0);
 	int numUsers = 0;
 	int temp;
 	float tempDist;
@@ -67,34 +67,47 @@ int main(){
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
-	User currentUser; // This will be the user currently accessing the system
+	User *currentUser; // This will be the user currently accessing the system
 	while(true){
+		std::cout << "Please choose an option:" << std::endl;
+		std::cout << "1: Identify" << std::endl;
+		std::cout << "2: New user registration" << std::endl;
+		std::cout << "3: Perform LDA weight analysis" << std::endl;
+		std::cout << "4: Exit." << std::endl;
 		std::cout << "Please choose an option" << std::endl;
 		std::cin >> userChoice;
 		std::cin.ignore(1);
 		if(userChoice == 1){
+			currentUser = new User(0);
+			std::cout << "Determining identity" << std::endl;
 			// Identify/Authenticate the user
-			currentUser.initializeNewUser("temp", 4);
+			currentUser->initializeNewUser("temp", 4); // We will upsample this user, to test against pregenerated weights
 			temp = 0;
 			for(int i=0;i<numUsers;i++){
 				// Iterate through the coefficient lists, and keep the lowest distance, then calculate the probability
-				tempDist= distCompare(currentUser,masterList);
+				tempDist = distCompare(currentUser,masterList);
 				if (tempDist<bestDist){
 					temp = i; // set the current best user
 				}
 				//Fusion code goes in here
 				std::cout << "You are user: " << masterList[temp].name << std::endl;
 			}
+			delete currentUser;
 		}
 		else if(userChoice == 2){
+			std::cout << "Registering a new user." << std::endl;
 			// Enrol User in the system
 			// Create new User class
 			std::string tempName;
-			std::cout << "Please enter your name: ";
+			std::cout << "Please enter your name: " << std::endl;
 			std::cin >> tempName;
-			masterList[numUsers].initializeNewUser(tempName,20);
+			masterList[numUsers].initializeNewUser(tempName,22);
 			numUsers += 1;
 			// We now recompile the weights in the LDA algorithm with the added user.
+		}
+		else if(userChoice == 3){
+			// Recompute weights, and update the coefficients
+			ldaComputation(masterList);
 		}
 		else if(userChoice == 4){
 			std::cout << "Exiting program" << std::endl;

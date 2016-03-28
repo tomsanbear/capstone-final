@@ -64,9 +64,7 @@ void getSNR(const float* filtSig,const float origSig[],const int numSamples, flo
         noisePower+=std::abs(noise[i]*noise[i])/numSamples;
         sigPower+=std::abs(filtSig[i]*filtSig[i])/numSamples;
     }
-    printf("%f\n%f\n", sigPower, noisePower);
     snr = sigPower/noisePower;
-    printf("%f\n", snr);
     return;
 }
 

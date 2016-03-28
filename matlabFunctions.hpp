@@ -1,5 +1,4 @@
-// this header contains all the calls for functions created from the matlab script provided 
-// from hatzinakos
+// this header contains all the calls for functions created from the matlab script
 
 #ifndef matlabFunctions
 #define matlabFunctions
@@ -9,11 +8,10 @@
 #include "alglib/ap.h"
 #include <math.h>
 
-// Takes in two float arrays of wavelet coefs 
-float distCompare(User first, std::vector<User> second);
-// Takes autocorellation of the function
-void autocorellation(User input,std::vector<float> &ac);
-// Perform LDA on the set TODO
+// Takes in user and masterlist, outputs score
+float distCompare(User &first, std::vector<User> &masterList);
+
+// Perform LDA on the set
 void ldaComputation(std::vector<User> &masterList);
 // 
 

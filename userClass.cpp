@@ -7,7 +7,7 @@
 
 // New User Declaration 
 void User::initializeNewUser(std::string username, int sampleTime){
-	name = username;
+	this->name = username;
 	// we now start the capture procedure
 	int status = readEKG(sampleTime,ekgdata);
 	if(status == 0){
@@ -16,9 +16,11 @@ void User::initializeNewUser(std::string username, int sampleTime){
 		float ekg_float[numsamples];
 		std::copy(ekgdata.begin(),ekgdata.end(),ekg_float);
 		float snr = 0;
-		myButterFilter(ekg_float,snr,numsamples); //TODO convert function to use vector
+		myButterFilter(ekg_float,snr,numsamples);
 		// Window the signal now
+		this->windowEkg();
 		// We now find detailed coefs.
+		this->computeCoefs();
 	}
 	else
 		std::cout << "Failed to initialize the new user." << std::endl;
@@ -31,11 +33,18 @@ void User::windowEkg(){
 	int freq = 200;
 	int windowsize = slideby*freq;
 	int numwins = int(ekgdata.size()/windowsize);
-	// Predetermine sizes for this
-	for(int i = 0; i<=ekgdata.size()-1;i=i+(slideby*freq)){ // TODO this is most likely wrong
-		// check to see if we are outside array bounds, if so windowing is done
-
+	// initialize the memory
+	this->windowdata.resize(numwins);
+	for(int i = 0; i<=numwins-1;i++){
+		for(int j = 0;j<=windowsize-1;j++){
+			this->windowdata[i].push_back(this->ekgdata[j+i*windowsize]);
+		}
 	}
+	return;
+}
+
+void User::computeCoefs(){
+	// Internal function to compute wavelet coefs
 }
 
 // returns 1 if successful, 0 if file doesent exist
@@ -50,6 +59,7 @@ void User::flushUserToFile(){
 }
 
 //Define the default constructor class
-User::User(void){
+User::User(int input){
 	std::cout << "Empty User created" << std::endl;
+	this->identifier = input;
 }
