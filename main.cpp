@@ -61,6 +61,7 @@ int main(){
 	int numUsers = 0;
 	float tempDist;
 	float bestDist = 10000;
+	int status;
 	std::cout << "Importing any available users to the system." << std::endl;
 	// Read in any available users. TODO
 
@@ -75,7 +76,8 @@ int main(){
 		std::cout << "1: Identify: must have registered users, and run LDA first." << std::endl;
 		std::cout << "2: New user registration." << std::endl;
 		std::cout << "3: Perform LDA weight analysis." << std::endl;
-		std::cout << "4: Exit." << std::endl;
+		std::cout << "4: Save database." << std::endl;
+		std::cout << "5: Exit." << std::endl;
 		std::cout << "Please choose an option" << std::endl;
 		std::cin >> userChoice;
 		std::cin.ignore(1);
@@ -140,15 +142,23 @@ int main(){
 			std::cout << "Please enter your name: " << std::endl;
 			std::cin >> tempName;
 			masterList.resize(numUsers+1);
-			masterList[numUsers].initializeNewUser(tempName,22);
+			status = masterList[numUsers].initializeNewUser(tempName,22);
+			masterList[numUsers].identifier = numUsers;
 			masterList[numUsers].computeCoefs();
-			numUsers += 1;
+			if(status == 1)
+				numUsers += 1;
 		}
 		else if(userChoice == 3){
 			// Recompute weights, and update the coefficients
 			ldaComputation(masterList);
 		}
 		else if(userChoice == 4){
+			std::cout << "Saving users to the database." << std::endl;
+			for(int i = 0; i < numUsers ; i++){
+				masterList[i].flushUserToFile();
+			}
+		}
+		else if(userChoice == 5){
 			std::cout << "Exiting program" << std::endl;
 			return 0;
 		}

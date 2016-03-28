@@ -2,11 +2,15 @@
 
 #include "userClass.hpp"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include <stdlib.h>
 
 // New User Declaration 
-void User::initializeNewUser(std::string username, int sampleTime){
+int User::initializeNewUser(std::string username, int sampleTime){
 	this->name = username;
 	// we now start the capture procedure
 	int status = readEKG(sampleTime,ekgdata);
@@ -19,10 +23,11 @@ void User::initializeNewUser(std::string username, int sampleTime){
 		myButterFilter(ekg_float,snr,numsamples);
 		// Window the signal now
 		this->windowEkg();
+		return 1;
 	}
 	else
 		std::cout << "Failed to initialize the new user." << std::endl;
-	return;
+	return 0;
 }
 
 void User::windowEkg(){
@@ -87,7 +92,15 @@ int User::initializefromfile(int identifier){
 }
 
 void User::flushUserToFile(){
-	// Convert the user data to specified import/export format
+	std::ostringstream sstream;
+	sstream << "user" << identifier;
+	std::string filename = sstream.str();
+	std::ofstream myfile;
+	myfile.open(filename.c_str());
+	for(int i = 0; i < this->vectorCoefs.size(); i++)
+		for(int j=0; j < this->vectorCoefs[0].size();j++)
+			myfile << this->vectorCoefs[i][j] << std::endl;
+	myfile.close();
 	return;
 }
 

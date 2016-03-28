@@ -25,7 +25,7 @@ class User{
 		std::vector< std::vector<double> > weights; // for conveninence weights are stored here, same for all users
 		//functions
 		int initializefromfile(int identifier);
-		void initializeNewUser(std::string username, int sampleTime);
+		int initializeNewUser(std::string username, int sampleTime);
 		void windowEkg(void);
 		void flushUserToFile(void);
 		void computeCoefs(void);
