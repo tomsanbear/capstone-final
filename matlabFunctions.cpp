@@ -1,9 +1,9 @@
 #include "matlabFunctions.hpp"
 
-float distCompare(User *&challenge, std::vector<User> &masterList){
+void distCompare(User *&challenge, std::vector<User> &masterList, float *&distList){
 	//
-	float distance = 1;
-	return distance;
+
+	return;
 }
 
 void ldaComputation(std::vector<User> &masterList){
@@ -35,10 +35,12 @@ void ldaComputation(std::vector<User> &masterList){
 		masterList[i].weights.resize(nvars);
 		for(int j = 0; j < nvars; j++){ // store each weight iteration
 			for(int k =0; k< nvars;k++){
-				std::cout << w(j,k) << std::endl;
+				std::cout << w(j,k) << " ";
 				masterList[i].weights[j].push_back(w(j,k));
 			}
+			std::cout << std::endl;
 		}
+		std::cout << std::endl;
 	}
 
 	// Apply the weights to the coefficients TODO
@@ -54,6 +56,7 @@ void ldaComputation(std::vector<User> &masterList){
 			temp[i].push_back(masterList[0].weights[j][i]);
 		}
 	}
+	std::cout << "coefficients: " << std::endl;
 	for(int h =0; h < nclasses;h++){ // iterate through each user to compute coefs
 		//setup size of weighted coef
 		masterList[h].weightedCoefs.resize(nCommon);
@@ -64,8 +67,11 @@ void ldaComputation(std::vector<User> &masterList){
 				for (int k = 0; k < nCommon ; k++) {
 					masterList[h].weightedCoefs[i][j] += masterList[h].vectorCoefs[i][k] * temp[k][j];
 				}
+				std::cout << masterList[h].weightedCoefs[i][j] << " ";
 			}
+			std::cout << std::endl;
 		}
+		std::cout << std::endl;
 	}
 	return;
 }

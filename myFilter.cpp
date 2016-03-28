@@ -33,7 +33,7 @@ int textParser(std::string textInput, std::vector<float> &output){
 	std::ifstream input(temp,std::ios::in); //create ifstream
     if (!input.is_open()){
         printf("cannot read file, exiting\n");
-        exit(EXIT_FAILURE);
+        return 0;;
     }
     float number;//float to store numbers
     int num = 0;//counter for number of data points

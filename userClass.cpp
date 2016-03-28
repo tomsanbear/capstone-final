@@ -19,8 +19,6 @@ void User::initializeNewUser(std::string username, int sampleTime){
 		myButterFilter(ekg_float,snr,numsamples);
 		// Window the signal now
 		this->windowEkg();
-		// We now find detailed coefs.
-		this->computeCoefs();
 	}
 	else
 		std::cout << "Failed to initialize the new user." << std::endl;
