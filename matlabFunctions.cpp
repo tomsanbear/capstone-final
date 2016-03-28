@@ -40,16 +40,29 @@ void ldaComputation(std::vector<User> &masterList){
 			}
 		}
 	}
-	//Apply the weights to the coefficients TODO
-	int n1 = masterList[0].weights[0].size();
-	int n2 = masterList[0].vectorCoefs[0].size();
-	int nCommon = masterList[0].weights.size();
-	for(int h =0; h<=nclasses;h++){
-		assert(masterList[h].vectorCoefs[0].size() == nCommon);
+
+	// Apply the weights to the coefficients TODO
+	int n1 = masterList[0].vectorCoefs.size(); // rows of coefs
+	int n2 = masterList[0].weights[0].size();	// cols of weights
+	int nCommon = masterList[0].vectorCoefs[0].size();  // rows of coefs
+	//setup size of weighted coef
+	// Transpose the weight matrix for convenience in next loop set
+	std::vector< std::vector<double> > temp;
+	temp.resize(nCommon);
+	for(int i = 0; i < nCommon ; i++){
+		for(int j=0 ; j < n1; j++){
+			temp[i].push_back(masterList[0].weights[j][i]);
+		}
+	}
+	for(int h =0; h < nclasses;h++){ // iterate through each user to compute coefs
+		//setup size of weighted coef
+		masterList[h].weightedCoefs.resize(nCommon);
+		//assert(masterList[h].vectorCoefs[0].size() == nCommon); // check for common dim
 		for (int i = 0; i < n1; i++) {
+			masterList[h].weightedCoefs[i].resize(n1);
 			for (int j = 0; j < n2; j++) {
 				for (int k = 0; k < nCommon ; k++) {
-					masterList[h].weightedCoefs[i][j] += masterList[h].weights[i][k] * masterList[h].weightedCoefs[k][j];
+					masterList[h].weightedCoefs[i][j] += masterList[h].vectorCoefs[i][k] * temp[k][j];
 				}
 			}
 		}
