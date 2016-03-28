@@ -7,22 +7,23 @@ float distCompare(User *&challenge, std::vector<User> &masterList){
 }
 
 void ldaComputation(std::vector<User> &masterList){
-	long int npoints = masterList.size() * masterList[1].vectorCoefs.size(); // all sets are trained to the same size
 	long int nvars = masterList[0].vectorCoefs[0].size();// Number of wavelet coefs for each trainig set
 	long int nclasses = masterList.size(); // Number of users
 	long int info = 0;
+	long int M = masterList[0].vectorCoefs.size();
+	long int npoints = M*nclasses;
 	alglib::real_2d_array w;
 	// We initilize this variable with the proper rows and columns
 	alglib::real_2d_array xy;
-	xy.setlength(nclasses*masterList[1].vectorCoefs.size(), nvars+1);
+	xy.setlength(nclasses*M, nvars+1);
 	// Load masterlist into the xy array
 	// we iterate through a for loop to mark off the classes in the
 	// matrix, then we
-	for(int i = 0; i <= nclasses-1; i++){ // iterate through each class
-		for(int j=0;j<= masterList[1].vectorCoefs.size();j++){ // iterate through each class' rows
-			xy(j,nvars) = i;
-			for(int k=0;k<=nvars-1;k++){ // iterate through each class' row elements
-				xy(j,k)=masterList[i].vectorCoefs[j][k];
+	for(int i = 0; i < nclasses; i++){ // iterate through each class
+		for(int j=0;j < M;j++){ // iterate through each class' rows
+			xy(j+i*M,nvars) = i;
+			for(int k=0; k < nvars;k++){ // iterate through each class' row elements
+				xy(j+i*M,k)=masterList[i].vectorCoefs[j][k];
 			}
 		}
 	}

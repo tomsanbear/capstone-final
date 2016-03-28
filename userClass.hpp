@@ -29,7 +29,7 @@ class User{
 		void windowEkg(void);
 		void flushUserToFile(void);
 		void computeCoefs(void);
-		User(int input);
+		User();
 };
 
 #endif

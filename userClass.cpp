@@ -94,7 +94,6 @@ void User::flushUserToFile(){
 }
 
 //Define the default constructor class
-User::User(int input){
+User::User(){
 	std::cout << "Empty User created" << std::endl;
-	this->identifier = input;
 }

@@ -57,13 +57,13 @@ int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg
 int main(){
 	// Load data from all files detected
 	// Currently user needs to manually tell the program how many existing users there are
-	std::vector<User> masterList(100,0);
+	std::vector<User> masterList;
 	int numUsers = 0;
 	int temp;
 	float tempDist;
 	float bestDist = 10000;
 	std::cout << "Importing any available users to the system." << std::endl;
-	// Read in any available users.
+	// Read in any available users. TODO
 
 	// Start of program, let user make choice on function to perform
 	int userChoice;
@@ -78,7 +78,7 @@ int main(){
 		std::cin >> userChoice;
 		std::cin.ignore(1);
 		if(userChoice == 1){
-			currentUser = new User(0);
+			currentUser = new User();
 			std::cout << "Determining identity" << std::endl;
 			// Identify/Authenticate the user
 			currentUser->initializeNewUser("temp", 4); // We will upsample this user, to test against pregenerated weights
@@ -104,6 +104,7 @@ int main(){
 			std::string tempName;
 			std::cout << "Please enter your name: " << std::endl;
 			std::cin >> tempName;
+			masterList.resize(numUsers+1);
 			masterList[numUsers].initializeNewUser(tempName,22);
 			numUsers += 1;
 		}
