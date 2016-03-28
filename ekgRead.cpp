@@ -8,7 +8,7 @@
 #define MAX_NUM_MEASUREMENTS 20000
 #define GOIO_MAXSIZE_DEVICE_NAME 100
 #include "ekgLib/GoIO_DLL_interface.h"
-
+#include <iostream>
 #include <vector>
 
 char const *deviceDesc[8] = {"?", "?", "Go! Temp", "Go! Link", "Go! Motion", "?", "?", "Mini GC"};
@@ -30,7 +30,7 @@ int readEKG(int sampleTime, std::vector<float> &newUser){
 	//	Initialize the library
 	GoIO_Init();
 	GoIO_GetDLLVersion(&MajorVersion, &MinorVersion);
-	printf("Using library version %d.%d \n", MajorVersion, MinorVersion);
+	//printf("Using library version %d.%d \n", MajorVersion, MinorVersion);
 	bool bFoundDevice = GetAvailableDeviceName(deviceName, GOIO_MAXSIZE_DEVICE_NAME, &vendorId, &productId);
 	if(!bFoundDevice){
 		printf("No sensor Detected\n");
@@ -40,11 +40,14 @@ int readEKG(int sampleTime, std::vector<float> &newUser){
 	else{
 		GOIO_SENSOR_HANDLE hDevice = GoIO_Sensor_Open(deviceName, vendorId, productId, 0);
 		if(hDevice != NULL){
-			printf("Sensor Opened Succesfully \n");
+			printf("Sensor Opened Successfully \nPlease hold the EKG sensors till prompted\n");
 			//Preparing to collect data from the device
 			GoIO_Sensor_SetMeasurementPeriod(hDevice,measureperiod,SKIP_TIMEOUT_MS_DEFAULT);
 			GoIO_Sensor_SendCmdAndGetResponse(hDevice, SKIP_CMD_ID_START_MEASUREMENTS,NULL,0,NULL,NULL,SKIP_TIMEOUT_MS_DEFAULT);
-			OSSleep(sampleTime*1000);
+			for(int i = 0; i < 10; i++){
+				std::cout << i*10 << "%" << std::endl;
+				OSSleep(sampleTime*1000/10);
+			}
 			numMeasurements = GoIO_Sensor_ReadRawMeasurements(hDevice, rawMeasurements, MAX_NUM_MEASUREMENTS);
 			printf("Recorded %d measurements \n", numMeasurements);
 			// Begin outputting data to file to be processed further
