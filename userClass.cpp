@@ -46,8 +46,7 @@ void User::windowEkg(){
 void User::computeCoefs(){
 	std::cout << "Computing coefficients for user " << this->name << std::endl;
 	// Internal function to compute wavelet coefs
-	int M; // Autocorrelation lags
-	int upM;
+	int M = 3; // Autocorrelation lags
 	//initialize the coefs
 	int numwins = this->windowdata.size();
 	this->vectorCoefs.resize(M+1);
@@ -71,10 +70,10 @@ void User::computeCoefs(){
 		for(int j = 0; j<numwins ; j++){
 			//need another loop for numerator
 			for(int k = 0; k<N-i; k++){
-				num = (windowdata[j][k]-mean[i])*(windowdata[j][k+i]);
+				num = num + (windowdata[j][k]-mean[i])*(windowdata[j][k+i]);
 			}
 			for(int k = 0; k<N-i; k++){
-				den = (windowdata[j][k]-mean[i])*(windowdata[j][k]-mean[i]);
+				den = den + (windowdata[j][k]-mean[i])*(windowdata[j][k]-mean[i]);
 			}
 			vectorCoefs[i][j]= num/den;
 			num = 0;

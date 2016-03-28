@@ -8,7 +8,6 @@ float distCompare(User *&challenge, std::vector<User> &masterList){
 
 void ldaComputation(std::vector<User> &masterList){
 	long int npoints = masterList.size() * masterList[1].vectorCoefs.size(); // all sets are trained to the same size
-	long int nvars = masterList[0].vectorCoefs[0].size();
 	long int nvars = masterList[0].vectorCoefs[0].size();// Number of wavelet coefs for each trainig set
 	long int nclasses = masterList.size(); // Number of users
 	long int info = 0;
