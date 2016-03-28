@@ -9,7 +9,7 @@
 #include <math.h>
 
 // Takes in user and masterlist, outputs score
-float distCompare(User &first, std::vector<User> &masterList);
+float distCompare(User *&challenge, std::vector<User> &masterList);
 
 // Perform LDA on the set
 void ldaComputation(std::vector<User> &masterList);

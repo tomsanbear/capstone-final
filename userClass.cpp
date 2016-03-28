@@ -44,7 +44,43 @@ void User::windowEkg(){
 }
 
 void User::computeCoefs(){
+	std::cout << "Computing coefficients for user " << this->name << std::endl;
 	// Internal function to compute wavelet coefs
+	int M; // Autocorrelation lags
+	int upM;
+	//initialize the coefs
+	int numwins = this->windowdata.size();
+	this->vectorCoefs.resize(M+1);
+	for(int i = 0; i<M+1; i++)
+		this->vectorCoefs[i].resize(this->windowdata.size()); // resize to number of windows
+	// need mean values for each window
+	float mean[numwins];
+	int N = this->windowdata[0].size();
+	for(int i = 0; i<numwins;i++){
+		mean[i] = 0;
+		for(int j = 0; j<windowdata[0].size();j++){
+			mean[i] = mean[i]+windowdata[i][j];
+		}
+		mean[i] = mean[i]/windowdata[0].size();
+	}
+	//compute autocorrelation of the current signal
+	float num = 0;
+	float den = 0;
+	for(int i = 0; i < M+1; i++){ // iterate through lags
+		// now we calculate the autocorrelation, rows are windows, cols are lags
+		for(int j = 0; j<numwins ; j++){
+			//need another loop for numerator
+			for(int k = 0; k<N-i; k++){
+				num = (windowdata[j][k]-mean[i])*(windowdata[j][k+i]);
+			}
+			for(int k = 0; k<N-i; k++){
+				den = (windowdata[j][k]-mean[i])*(windowdata[j][k]-mean[i]);
+			}
+			vectorCoefs[i][j]= num/den;
+			num = 0;
+			den = 0;
+		}
+	}
 }
 
 // returns 1 if successful, 0 if file doesent exist

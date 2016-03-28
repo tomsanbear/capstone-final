@@ -12,7 +12,6 @@
 #include <string>
 #include "myFilter.hpp"
 #include "ekgRead.hpp"
-#define MAX_COEF_SIZE 100
 
 class User{
 		public:

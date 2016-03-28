@@ -1,13 +1,15 @@
 #include "matlabFunctions.hpp"
 
-float distCompare(User &challenge, std::vector<User> &masterList){
-	// code here
-	return 1;
+float distCompare(User *&challenge, std::vector<User> &masterList){
+	//
+	float distance = 1;
+	return distance;
 }
 
 void ldaComputation(std::vector<User> &masterList){
 	long int npoints = masterList.size() * masterList[1].vectorCoefs.size(); // all sets are trained to the same size
-	long int nvars = masterList[1].vectorCoefs[1].size(); // Number of wavelet coefs for each trainig set
+	long int nvars = masterList[0].vectorCoefs[0].size();
+	long int nvars = masterList[0].vectorCoefs[0].size();// Number of wavelet coefs for each trainig set
 	long int nclasses = masterList.size(); // Number of users
 	long int info = 0;
 	alglib::real_2d_array w;
@@ -50,14 +52,4 @@ void ldaComputation(std::vector<User> &masterList){
 		}
 	}
 	return;
-}
-
-// Takes input of windowed data, M, and upsample M
-void autocorellation(int M,int upM, std::vector<float> &windowSig,std::vector<float> &ac){
-	int sizeOf = windowSig.size();
-	for(int i= 0; i<= sizeOf;i++){
-		for(int j=0;j<=M+1;j++){
-			//insert ac code here TODO
-		}
-	}
 }

@@ -82,6 +82,9 @@ int main(){
 			std::cout << "Determining identity" << std::endl;
 			// Identify/Authenticate the user
 			currentUser->initializeNewUser("temp", 4); // We will upsample this user, to test against pregenerated weights
+			// Upsample our signal
+
+			// Find the distances
 			temp = 0;
 			for(int i=0;i<numUsers;i++){
 				// Iterate through the coefficient lists, and keep the lowest distance, then calculate the probability
@@ -103,7 +106,6 @@ int main(){
 			std::cin >> tempName;
 			masterList[numUsers].initializeNewUser(tempName,22);
 			numUsers += 1;
-			// We now recompile the weights in the LDA algorithm with the added user.
 		}
 		else if(userChoice == 3){
 			// Recompute weights, and update the coefficients
