@@ -31,22 +31,25 @@ void ldaComputation(std::vector<User> &masterList){
 	alglib::fisherldan(xy,npoints,nvars,nclasses,info,w);
 	// Send weights back to original function
 	// NxM
-	for(int i = 0; i <= masterList[0].vectorCoefs.size()-1; i++){
-		for(int j = 0; j <=  nvars; j++){
-			for(int k =0; k<= masterList[1].vectorCoefs.size();k++)
-				masterList[i].weights[j].push_back(w(i,k));
+	for(int i = 0; i < nclasses; i++){ // store weights in each user
+		masterList[i].weights.resize(nvars);
+		for(int j = 0; j < nvars; j++){ // store each weight iteration
+			for(int k =0; k< nvars;k++){
+				std::cout << w(j,k) << std::endl;
+				masterList[i].weights[j].push_back(w(j,k));
+			}
 		}
 	}
-	//Apply the weights to the coefficients
-	int n1 = masterList[0].vectorCoefs[0].size();
-	int n2 = masterList[0].weights[0].size();
-	int nCommon = masterList[0].vectorCoefs.size();
+	//Apply the weights to the coefficients TODO
+	int n1 = masterList[0].weights[0].size();
+	int n2 = masterList[0].vectorCoefs[0].size();
+	int nCommon = masterList[0].weights.size();
 	for(int h =0; h<=nclasses;h++){
 		assert(masterList[h].vectorCoefs[0].size() == nCommon);
 		for (int i = 0; i < n1; i++) {
 			for (int j = 0; j < n2; j++) {
 				for (int k = 0; k < nCommon ; k++) {
-					masterList[h].weightedCoefs[i][j] += masterList[h].vectorCoefs[i][k] * masterList[h].weightedCoefs[k][j];
+					masterList[h].weightedCoefs[i][j] += masterList[h].weights[i][k] * masterList[h].weightedCoefs[k][j];
 				}
 			}
 		}
