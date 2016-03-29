@@ -59,20 +59,26 @@ int main(){
 	// Currently user needs to manually tell the program how many existing users there are
 	std::vector<User> masterList;
 	int numUsers = 0;
-	float tempDist;
-	float bestDist = 10000;
+	int rowCount,colCount;
 	int status;
 	std::cout << "Importing any available users to the system." << std::endl;
 	// Read in any available users.
+	// 1: r, 2: swy, 3: s
 	for(int i = 0; i <= numUsers; i++){
 		masterList.resize(numUsers+1);
-		if(masterList[i].initializefromfile(i) == 1)
+		std::cout << "Importing user " << i << std::endl;
+		if(masterList[i].initializefromfile(i) == 1){
 			numUsers += 1;
+			masterList[i].computeCoefs();
+		}
+		else
+			masterList.pop_back();
+
 	}
 	// Start of program, let user make choice on function to perform
 	int userChoice;
 	User *currentUser; // This will be the user currently accessing the system
-	float *distList;
+	float **distList;
 	float distsum;
 	int tempint;
 	std::vector< std::vector<double> > temp;
@@ -86,12 +92,19 @@ int main(){
 		std::cout << "Please choose an option" << std::endl;
 		std::cin >> userChoice;
 		std::cin.ignore(1);
+		// User selection split point
 		if(userChoice == 1){
 			currentUser = new User();
-			distList = new float[masterList.size()];
+			// create a list for the distances to be stored
+			distList = new float*[masterList.size()];
+			rowCount = masterList.size();
+			colCount = masterList[0].weightedCoefs.size();
+			for(int i = 0; i < rowCount; ++i)
+			    distList[i] = new float[colCount];
+			//
 			std::cout << "Determining identity" << std::endl;
 			// Identify/Authenticate the user
-			currentUser->initializeNewUser("temp", 5); // We will upsample this user, to test against pregenerated weights
+			currentUser->initializeNewUser("temp", 5); // We will upsample this user, to test against pre-generated weights
 			// Upsample our signal, since we only have ~800 measurements = 1 window
 			currentUser->windowdata.resize(masterList[0].windowdata.size());
 			for(int i = 1; i < masterList[0].windowdata.size();i++){
@@ -127,12 +140,6 @@ int main(){
 			tempint = 0;
 			distsum = 0;
 			distCompare(currentUser,masterList,distList);
-			for(int i=0;i<numUsers;i++){
-				distsum += distList[i];
-				if(distList[i]<distList[tempint])
-					tempint = i;
-			}
-			distsum = distsum/numUsers;
 			// clean up after the user is done
 			delete distList;
 			delete currentUser;

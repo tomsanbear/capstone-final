@@ -79,6 +79,8 @@ void User::computeCoefs(){
 				den = den + (windowdata[j][k]-mean[i])*(windowdata[j][k]-mean[i]);
 			}
 			vectorCoefs[i][j]= num/den;
+			if(vectorCoefs[i][j] >= 20)
+				vectorCoefs[i][j]= 20;
 			num = 0;
 			den = 0;
 		}
@@ -87,24 +89,54 @@ void User::computeCoefs(){
 
 // returns 1 if successful, 0 if file doesent exist
 int User::initializefromfile(int identifier){
-	//
+	//This code imports the vector coefs
+//	std::ostringstream sstream;
+//	this->identifier = identifier;
+//	sstream << "user" << identifier;
+//	std::string filename = sstream.str();
+//	// we now start importing from file
+//	std::ifstream myfile(filename.c_str());
+//	std::string line;
+//	if(myfile.is_open()){
+//		std::getline(myfile,line);
+//		int rows = atoi(line.c_str());
+//		std::getline(myfile,line);
+//		int cols = atoi(line.c_str());
+//		this->vectorCoefs.resize(rows);
+//		for(int i = 0; i < rows; i++){
+//			this->vectorCoefs[i].resize(cols);
+//			for(int j = 0; j<cols;j++){
+//				std::getline(myfile,line);
+//				vectorCoefs[i][j] = atof(line.c_str());
+//			}
+//		}
+//	}
 	std::ostringstream sstream;
-	sstream << "user" << identifier;
+	this->identifier = identifier;
+	this->name = "imported user";
+	sstream << "ekg" << identifier;
 	std::string filename = sstream.str();
 	// we now start importing from file
 	std::ifstream myfile(filename.c_str());
 	std::string line;
-	std::getline(myfile,line);
-	int rows = atoi(line.c_str());
-	std::getline(myfile,line);
-	int cols = atoi(line.c_str());
 	if(myfile.is_open()){
+		std::getline(myfile,line);
+		int rows = atoi(line.c_str());
+		std::getline(myfile,line);
+		int cols = atoi(line.c_str());
+		this->ekgdata.resize(rows);
 		for(int i = 0; i < rows; i++){
-			for(int j = 0; j<cols;j++){
-				std::getline(myfile,line);
-				vectorCoefs[i][j] = atof(line.c_str());
-			}
+			std::getline(myfile,line);
+			ekgdata[i] = atof(line.c_str());
 		}
+		// Take the EKG vector and perform the filtering on it
+		int numsamples = ekgdata.size();
+		float ekg_float[numsamples];
+		std::copy(ekgdata.begin(),ekgdata.end(),ekg_float);
+		float snr = 0;
+		myButterFilter(ekg_float,snr,numsamples);
+		// Window the signal now
+		this->windowEkg();
 	}
 	else
 		return 0;
@@ -125,6 +157,16 @@ void User::flushUserToFile(){
 		for(int j=0; j < this->vectorCoefs[0].size();j++)
 			myfile << this->vectorCoefs[i][j] << std::endl;
 	myfile.close();
+	std::ostringstream sstream2;
+	sstream2 << "ekg" << identifier;
+	std::string filename2 = sstream2.str();
+	std::ofstream myfile2;
+	myfile2.open(filename2.c_str());
+	myfile2 << this->ekgdata.size() << std::endl;
+	// now we output vector coefs
+	for(int i = 0; i < this->ekgdata.size(); i++)
+			myfile2 << this->ekgdata[i] << std::endl;
+	myfile2.close();
 	return;
 }
 

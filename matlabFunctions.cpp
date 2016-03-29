@@ -1,13 +1,40 @@
 #include "matlabFunctions.hpp"
 
-void distCompare(User *&challenge, std::vector<User> &masterList, float *&distList){
-	//
-
+void distCompare(User *&challenge, std::vector<User> &masterList, float **&distList){
+	// setup the function
+	int rows = challenge->weightedCoefs.size();
+	int cols = challenge->weightedCoefs[0].size();
+	int nusers = masterList.size();
+	float sum [nusers];
+	float totalsum =0;
+	// we will output the weights in this function as well as return the distances
+	for(int i = 0; i < nusers; i++){
+		std::cout << "User " << i << std::endl;
+		for(int j = 0; j< rows-1; j++){ //subtract then square
+			distList[i][j] = 0;
+			for(int k = 0; k<cols ; k++)
+				distList[i][j] += std::pow((challenge->weightedCoefs[j][k]-masterList[i].weightedCoefs[j][k]),2);
+			// take root of summed value
+			distList[i][j] = pow(distList[i][j],0.5);
+			std::cout << distList[i][j] << std::endl;
+		}
+	}
+	// We now perform analysis on how likely it is who
+	for(int i = 0; i < nusers;i++){
+		sum[i] = 0;
+		for(int j = 0; j < cols-1;j++){
+			sum[i]+= distList[i][j];
+		}
+		totalsum += sum[i];
+	}
+	for(int i = 0; i < nusers;i++){
+		std::cout << "Probability that you are user " << i << ": " << 100*sum[i]/totalsum<< "%" << std::endl;
+	}
 	return;
 }
 
 void ldaComputation(std::vector<User> &masterList){
-	long int nvars = masterList[0].vectorCoefs[0].size();// Number of wavelet coefs for each trainig set
+	long int nvars = masterList[0].vectorCoefs[0].size();// Number of wavelet coefs for each training set
 	long int nclasses = masterList.size(); // Number of users
 	long int info = 0;
 	long int M = masterList[0].vectorCoefs.size();
