@@ -63,12 +63,17 @@ int main(){
 	float bestDist = 10000;
 	int status;
 	std::cout << "Importing any available users to the system." << std::endl;
-	// Read in any available users. TODO
-
+	// Read in any available users.
+	for(int i = 0; i <= numUsers; i++){
+		masterList.resize(numUsers+1);
+		if(masterList[i].initializefromfile(i) == 1)
+			numUsers += 1;
+	}
 	// Start of program, let user make choice on function to perform
 	int userChoice;
 	User *currentUser; // This will be the user currently accessing the system
 	float *distList;
+	float distsum;
 	int tempint;
 	std::vector< std::vector<double> > temp;
 	while(true){
@@ -120,16 +125,14 @@ int main(){
 			}
 			// Find the distances
 			tempint = 0;
+			distsum = 0;
 			distCompare(currentUser,masterList,distList);
 			for(int i=0;i<numUsers;i++){
-				// Iterate through the coefficient lists, and keep the lowest distance,
-				// then calculate the probability
-				if (tempDist<bestDist){
-					tempint = i; // set the current best user
-				}
-				//Fusion code goes in here
-				std::cout << "You are user: " << masterList[tempint].name << std::endl;
+				distsum += distList[i];
+				if(distList[i]<distList[tempint])
+					tempint = i;
 			}
+			distsum = distsum/numUsers;
 			// clean up after the user is done
 			delete distList;
 			delete currentUser;

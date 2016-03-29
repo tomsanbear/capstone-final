@@ -106,6 +106,8 @@ int User::initializefromfile(int identifier){
 			}
 		}
 	}
+	else
+		return 0;
 	return 1;
 }
 
