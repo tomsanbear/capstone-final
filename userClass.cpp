@@ -81,6 +81,8 @@ void User::computeCoefs(){
 			vectorCoefs[i][j]= num/den;
 			if(vectorCoefs[i][j] >= 20)
 				vectorCoefs[i][j]= 20;
+			if(vectorCoefs[i][j] <= -20)
+				vectorCoefs[i][j]= -20;
 			num = 0;
 			den = 0;
 		}

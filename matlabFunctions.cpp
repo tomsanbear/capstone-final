@@ -25,10 +25,12 @@ void distCompare(User *&challenge, std::vector<User> &masterList, float **&distL
 		for(int j = 0; j < cols-1;j++){
 			sum[i]+= distList[i][j];
 		}
+		std::cout << "User " << i << "'s Sum: " << sum[i] << std::endl;
 		totalsum += sum[i];
 	}
+	std::cout << totalsum << std::endl;
 	for(int i = 0; i < nusers;i++){
-		std::cout << "Probability that you are user " << i << ": " << 100*sum[i]/totalsum<< "%" << std::endl;
+		std::cout << "Probability that you are user " << i << ": " << 100*(totalsum-sum[i])/totalsum << "%" << std::endl;
 	}
 	return;
 }
@@ -79,8 +81,9 @@ void ldaComputation(std::vector<User> &masterList){
 	std::vector< std::vector<double> > temp;
 	temp.resize(nCommon);
 	for(int i = 0; i < nCommon ; i++){
+		temp[i].resize(n1);
 		for(int j=0 ; j < n1; j++){
-			temp[i].push_back(masterList[0].weights[j][i]);
+			temp[i][j] = masterList[0].weights[j][i];
 		}
 	}
 	std::cout << "coefficients: " << std::endl;
