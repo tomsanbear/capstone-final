@@ -41,6 +41,13 @@ int readEKG(int sampleTime, std::vector<float> &newUser){
 		GOIO_SENSOR_HANDLE hDevice = GoIO_Sensor_Open(deviceName, vendorId, productId, 0);
 		if(hDevice != NULL){
 			printf("Sensor Opened Successfully \nPlease hold the EKG sensors till prompted\n");
+			std::cout << "3" << std::endl;
+			OSSleep(1000);
+			std::cout << "2" << std::endl;
+			OSSleep(1000);
+			std::cout << "1" << std::endl;
+			OSSleep(1000);
+			std::cout << "Starting Measurements"<<std::endl;
 			//Preparing to collect data from the device
 			GoIO_Sensor_SetMeasurementPeriod(hDevice,measureperiod,SKIP_TIMEOUT_MS_DEFAULT);
 			GoIO_Sensor_SendCmdAndGetResponse(hDevice, SKIP_CMD_ID_START_MEASUREMENTS,NULL,0,NULL,NULL,SKIP_TIMEOUT_MS_DEFAULT);
