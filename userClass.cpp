@@ -88,15 +88,37 @@ void User::computeCoefs(){
 // returns 1 if successful, 0 if file doesent exist
 int User::initializefromfile(int identifier){
 	//
+	std::ostringstream sstream;
+	sstream << "user" << identifier;
+	std::string filename = sstream.str();
+	// we now start importing from file
+	std::ifstream myfile(filename.c_str());
+	std::string line;
+	std::getline(myfile,line);
+	int rows = atoi(line.c_str());
+	std::getline(myfile,line);
+	int cols = atoi(line.c_str());
+	if(myfile.is_open()){
+		for(int i = 0; i < rows; i++){
+			for(int j = 0; j<cols;j++){
+				std::getline(myfile,line);
+				vectorCoefs[i][j] = atof(line.c_str());
+			}
+		}
+	}
 	return 1;
 }
 
 void User::flushUserToFile(){
+	// we first output the dimensions of the vectorcoefs for future read ins
 	std::ostringstream sstream;
 	sstream << "user" << identifier;
 	std::string filename = sstream.str();
 	std::ofstream myfile;
 	myfile.open(filename.c_str());
+	myfile << this->vectorCoefs.size() << std::endl;
+	myfile << this->vectorCoefs[0].size() << std::endl;
+	// now we output vector coefs
 	for(int i = 0; i < this->vectorCoefs.size(); i++)
 		for(int j=0; j < this->vectorCoefs[0].size();j++)
 			myfile << this->vectorCoefs[i][j] << std::endl;
