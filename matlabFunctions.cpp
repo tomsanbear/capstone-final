@@ -38,7 +38,7 @@ void distCompare(User *&challenge, std::vector<User> &masterList, float **&distL
 void ldaComputation(std::vector<User> &masterList){
 	long int nvars = masterList[0].vectorCoefs[0].size();// Number of wavelet coefs for each training set
 	long int nclasses = masterList.size(); // Number of users
-	long int info = 0;
+	int info = 0;
 	long int M = masterList[0].vectorCoefs.size();
 	long int npoints = M*nclasses;
 	alglib::real_2d_array w;

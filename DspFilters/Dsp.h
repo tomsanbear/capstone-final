@@ -50,6 +50,6 @@ THE SOFTWARE.
 #include "State.h"
 #include "Utilities.h"
 
-#include "DspFilters/Butterworth.h"
+#include "Butterworth.h"
 
 #endif
