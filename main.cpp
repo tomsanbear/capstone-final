@@ -28,22 +28,31 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 
 // returns 0 for accepted, 1 for rejected
-int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float ekg_score){
-	float fp_limit = 0.9;
-	float ekg_limit = 0.95;
-	float fusion_limit = 0.8; // These values will be modified later on ~ SNR
+int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float &ekg_score){
+	float fp_limit = 0.95;
+	float ekg_limit = 0.75;
+	float fusion_limit = 0.90; // These values will be modified later on ~ SNR
+	std::cout << "Fingerprint score: " << fp_score << std::endl;
 	if(fp_score < fp_limit){
 		// Fingerprint is not satisfactory, so we move on to the ekg
 		std::cout << "Fingerprint not coherent, matching EKG" << std::endl;
-		if(ekg_score < ekg_limit)
+		std::cout << "Testing with measured EKG: " << ekg_score << std::endl;
+		if(ekg_score < ekg_limit){
+			std::cout << "EKG score not sufficient to improve fingerprint score" << std::endl;
 			return 1;
+		}
 		else{
 			// fusion HA
+			std::cout << "EKG score meets requirements for fusion scoring" << std::endl;
 			float fusionScore = (fp_weight*fp_score)+(ekg_weight*ekg_score);
-			if (fusionScore<fusion_limit)
+			if (fusionScore<fusion_limit){
+				std::cout << "Fusion score of " << fusionScore << " is not sufficient for access" << std::endl;
 				return 1;
-			else
+			}
+			else{
+				std::cout << "Fusion score of " << fusionScore << " is sufficient for access" << std::endl;
 				return 0;
+			}
 		}
 	}
 	else
@@ -78,7 +87,7 @@ int main(){
 	// Start of program, let user make choice on function to perform
 	int userChoice;
 	User *currentUser; // This will be the user currently accessing the system
-	float **distList;
+	float *distList;
 	float distsum;
 	int tempint;
 	std::vector< std::vector<double> > temp;
@@ -96,11 +105,11 @@ int main(){
 		if(userChoice == 1){
 			currentUser = new User();
 			// create a list for the distances to be stored
-			distList = new float*[masterList.size()];
+			distList = new float[masterList.size()];
 			rowCount = masterList.size();
 			colCount = masterList[0].weightedCoefs.size();
-			for(int i = 0; i < rowCount; ++i)
-			    distList[i] = new float[colCount];
+			//for(int i = 0; i < rowCount; ++i)
+			//    distList[i] = new float[colCount];
 			//
 			std::cout << "Determining identity" << std::endl;
 			// Identify/Authenticate the user
@@ -123,7 +132,7 @@ int main(){
 					temp[i].push_back(masterList[0].weights[j][i]);
 				}
 			}
-			std::cout << "test user coefficients: " << std::endl;
+			std::cout << "Testing user coefficients..." << std::endl;
 			// Apply weights to the upsampled signal
 			currentUser->weightedCoefs.resize(nCommon);
 			for (int i = 0; i < n1; i++) {
@@ -132,15 +141,20 @@ int main(){
 					for (int k = 0; k < nCommon ; k++) {
 						currentUser->weightedCoefs[i][j] += currentUser->vectorCoefs[i][k] * temp[k][j];
 					}
-					std::cout << currentUser->weightedCoefs[i][j] << " ";
+					//std::cout << currentUser->weightedCoefs[i][j] << " ";
 				}
-				std::cout << std::endl;
+				//std::cout << std::endl;
 			}
 			// Find the distances
 			tempint = 0;
 			distsum = 0;
 			distCompare(currentUser,masterList,distList);
 			// clean up after the user is done
+			// we now start the fusion method comparison
+			for(int i=0; i<numUsers ; i++){
+				std::cout << "Testing User " << i << std::endl;
+				tempint = scoringFunction(0.9,0.1,0.94,distList[i]);
+			}
 			delete distList;
 			delete currentUser;
 		}
@@ -148,9 +162,7 @@ int main(){
 			std::cout << "Registering a new user." << std::endl;
 			// Enrol User in the system
 			// Create new User class
-			std::string tempName;
-			std::cout << "Please enter your name: " << std::endl;
-			std::cin >> tempName;
+			std::string tempName = "user";
 			masterList.resize(numUsers+1);
 			status = masterList[numUsers].initializeNewUser(tempName,22);
 			masterList[numUsers].identifier = numUsers;

@@ -1,5 +1,9 @@
 Final compilation of code for the EKG fingerprint system. 
 
+Required libraries for running this code is the GoIO SDK and its dependencies, libusb, and build-essentials
+
+To compile, make clean, then make all. Provided you are running on standard g++, no issues should arise!
+
 The main components are as follows:
 -EKG Data Logger [done]
 -EKG Filtering System [done]
@@ -9,6 +13,5 @@ The main components are as follows:
 -Final compilation algorithm [done]
 -Scoring method [done]
 -UI [done]
--Wavelet transform [TODO]
 
 This software could not have been completed without the AlgLib, DSPFilters, GoIO libraries.

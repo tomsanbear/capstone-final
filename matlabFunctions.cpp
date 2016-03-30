@@ -1,22 +1,22 @@
 #include "matlabFunctions.hpp"
 
-void distCompare(User *&challenge, std::vector<User> &masterList, float **&distList){
+void distCompare(User *&challenge, std::vector<User> &masterList, float *&sum){
 	// setup the function
 	int rows = challenge->weightedCoefs.size();
 	int cols = challenge->weightedCoefs[0].size();
 	int nusers = masterList.size();
-	float sum [nusers];
+	float distList [nusers][rows];
 	float totalsum =0;
 	// we will output the weights in this function as well as return the distances
 	for(int i = 0; i < nusers; i++){
-		std::cout << "User " << i << std::endl;
+		//std::cout << "User " << i << std::endl;
 		for(int j = 0; j< rows-1; j++){ //subtract then square
 			distList[i][j] = 0;
 			for(int k = 0; k<cols ; k++)
 				distList[i][j] += std::pow((challenge->weightedCoefs[j][k]-masterList[i].weightedCoefs[j][k]),2);
 			// take root of summed value
 			distList[i][j] = pow(distList[i][j],0.5);
-			std::cout << distList[i][j] << std::endl;
+			//std::cout << distList[i][j] << std::endl;
 		}
 	}
 	// We now perform analysis on how likely it is who
@@ -28,9 +28,12 @@ void distCompare(User *&challenge, std::vector<User> &masterList, float **&distL
 		std::cout << "User " << i << "'s Sum: " << sum[i] << std::endl;
 		totalsum += sum[i];
 	}
+	for(int i = 0; i < nusers;i++){
+		sum[i] = (totalsum-sum[i])/totalsum;
+	}
 	std::cout << totalsum << std::endl;
 	for(int i = 0; i < nusers;i++){
-		std::cout << "Probability that you are user " << i << ": " << 100*(totalsum-sum[i])/totalsum << "%" << std::endl;
+		std::cout << "Probability that you are user " << i << ": " << 100*sum[i] << "%" << std::endl;
 	}
 	return;
 }
@@ -64,12 +67,12 @@ void ldaComputation(std::vector<User> &masterList){
 		masterList[i].weights.resize(nvars);
 		for(int j = 0; j < nvars; j++){ // store each weight iteration
 			for(int k =0; k< nvars;k++){
-				std::cout << w(j,k) << " ";
+				//std::cout << w(j,k) << " ";
 				masterList[i].weights[j].push_back(w(j,k));
 			}
-			std::cout << std::endl;
+			//std::cout << std::endl;
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 
 	// Apply the weights to the coefficients TODO
@@ -86,7 +89,7 @@ void ldaComputation(std::vector<User> &masterList){
 			temp[i][j] = masterList[0].weights[j][i];
 		}
 	}
-	std::cout << "coefficients: " << std::endl;
+	//std::cout << "coefficients: " << std::endl;
 	for(int h =0; h < nclasses;h++){ // iterate through each user to compute coefs
 		//setup size of weighted coef
 		masterList[h].weightedCoefs.resize(nCommon);
@@ -97,11 +100,11 @@ void ldaComputation(std::vector<User> &masterList){
 				for (int k = 0; k < nCommon ; k++) {
 					masterList[h].weightedCoefs[i][j] += masterList[h].vectorCoefs[i][k] * temp[k][j];
 				}
-				std::cout << masterList[h].weightedCoefs[i][j] << " ";
+				//std::cout << masterList[h].weightedCoefs[i][j] << " ";
 			}
-			std::cout << std::endl;
+			//std::cout << std::endl;
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 	return;
 }
