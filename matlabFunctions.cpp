@@ -29,6 +29,8 @@ void distCompare(User *&challenge, std::vector<User> &masterList, float *&sum){
 		totalsum += sum[i];
 	}
 	for(int i = 0; i < nusers;i++){
+		if(sum[i] > 2)
+			sum[i] = totalsum;
 		sum[i] = (totalsum-sum[i])/totalsum;
 	}
 	std::cout << totalsum << std::endl;

@@ -30,7 +30,7 @@
 // returns 0 for accepted, 1 for rejected
 int scoringFunction(float fp_weight, float ekg_weight, float fp_score, float &ekg_score){
 	float fp_limit = 0.95;
-	float ekg_limit = 0.75;
+	float ekg_limit = 0.7;
 	float fusion_limit = 0.90; // These values will be modified later on ~ SNR
 	std::cout << "Fingerprint score: " << fp_score << std::endl;
 	if(fp_score < fp_limit){
